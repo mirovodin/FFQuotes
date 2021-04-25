@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="InformationView" customModule="FH_Schedule" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="300" height="282"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3s7-fF-hXZ">
+                    <rect key="frame" x="0.0" y="0.0" width="300" height="21"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                </view>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="zfy-W6-hEw">
+                    <rect key="frame" x="112.5" y="36" width="75" height="75"/>
+                    <constraints>
+                        <constraint firstAttribute="height" priority="750" constant="75" id="Z3r-gK-8u5"/>
+                        <constraint firstAttribute="width" secondItem="zfy-W6-hEw" secondAttribute="height" multiplier="1:1" id="hAG-vB-hQL"/>
+                    </constraints>
+                </imageView>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Hpg-ZX-POa">
+                    <rect key="frame" x="0.0" y="240.5" width="300" height="41.5"/>
+                </view>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TSU-9t-hu2">
+                    <rect key="frame" x="10" y="126" width="280" height="99.5"/>
+                    <string key="text">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.</string>
+                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
+                    <color key="textColor" red="0.38431372549019605" green="0.42352941176470588" blue="0.46274509803921571" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="zfy-W6-hEw" firstAttribute="top" secondItem="3s7-fF-hXZ" secondAttribute="bottom" constant="15" id="6Zh-6a-1mW"/>
+                <constraint firstItem="Hpg-ZX-POa" firstAttribute="top" secondItem="TSU-9t-hu2" secondAttribute="bottom" constant="15" id="7ur-jL-Nx7"/>
+                <constraint firstItem="TSU-9t-hu2" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="10" id="CgP-pG-RjI"/>
+                <constraint firstItem="TSU-9t-hu2" firstAttribute="top" secondItem="zfy-W6-hEw" secondAttribute="bottom" constant="15" id="HCj-04-UmN"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="TSU-9t-hu2" secondAttribute="trailing" constant="10" id="Kd8-r2-FSq"/>
+                <constraint firstItem="3s7-fF-hXZ" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="SHc-kB-XPt"/>
+                <constraint firstItem="3s7-fF-hXZ" firstAttribute="height" secondItem="Hpg-ZX-POa" secondAttribute="height" multiplier="1:2" id="W8u-rr-HFB"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="Hpg-ZX-POa" secondAttribute="trailing" id="d6A-dT-LTj"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="3s7-fF-hXZ" secondAttribute="trailing" id="fau-AH-2Su"/>
+                <constraint firstItem="zfy-W6-hEw" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="gRI-Nu-cSa"/>
+                <constraint firstItem="3s7-fF-hXZ" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="s6g-ij-ScP"/>
+                <constraint firstItem="Hpg-ZX-POa" firstAttribute="bottom" secondItem="vUN-kp-3ea" secondAttribute="bottom" id="vPA-Ce-lHZ"/>
+                <constraint firstItem="Hpg-ZX-POa" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="yC3-Jy-gLo"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <connections>
+                <outlet property="imageView" destination="zfy-W6-hEw" id="uaK-6V-Bbg"/>
+                <outlet property="messageLabel" destination="TSU-9t-hu2" id="qwd-Sz-TEZ"/>
+            </connections>
+            <point key="canvasLocation" x="-6.4000000000000004" y="-16.191904047976013"/>
+        </view>
+    </objects>
+</document>

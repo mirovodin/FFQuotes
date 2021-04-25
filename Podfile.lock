@@ -1,0 +1,24 @@
+PODS:
+  - Nuke (9.4.1)
+  - Observable (2.2.0)
+  - Starscream (3.1.1)
+
+DEPENDENCIES:
+  - Nuke
+  - Observable
+  - Starscream (= 3.1.1)
+
+SPEC REPOS:
+  trunk:
+    - Nuke
+    - Observable
+    - Starscream
+
+SPEC CHECKSUMS:
+  Nuke: ca782d1a417904db70f2c65d6feb2329a2679491
+  Observable: d5369c555eae9d022cb066867786f6b9470de33c
+  Starscream: 4bb2f9942274833f7b4d296a55504dcfc7edb7b0
+
+PODFILE CHECKSUM: c4a5d3be18b6d4b231ee06713d16a464869acc65
+
+COCOAPODS: 1.10.1
