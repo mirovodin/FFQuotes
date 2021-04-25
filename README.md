@@ -1,2 +1,2 @@
 # FFQuotes
-Freedom Finance - Test
+Freedom Finance
