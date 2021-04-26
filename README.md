@@ -1,6 +1,6 @@
 # Freedom Finance Quotes
 
-Тестовоый провект для компании *Freedom Finance*. Архитектура VIP, зависимости Cocoapods: 
+Тестовый проект для компании *Freedom Finance*. Архитектура VIP, зависимости Cocoapods: 
 - Starscream Websocket
 - Observable - простой компонент данный паттерн
 - Nuke - загрузка и отображение иконок
@@ -116,7 +116,7 @@ protocol QuotesRepositoryProtocol {
 ### DI
 В проекте использован паттерн `Service Locator`: `ServiceLocatorProtocol` и `ModuleLocatorProtocol`. Зависимости передаются через конструкторы.
 ### Модули
-Одноноправленная архитектура VIP:
+Однонаправленная архитектура VIP (Slean Swift)
 ![Vip](https://habrastorage.org/webt/xf/kt/ti/xfkttir6l7nud2q-m8ptw_1kfl8.jpeg)
 Модель обновления view:
 ```swift
