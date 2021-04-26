@@ -152,6 +152,8 @@ protocol PaletteProtocol {
 
 Эффект *вспышки* при обновлении реализован в `QuotesModuleViewQuoteCell`, мы понимаем, что ячейка находится в списке `updatedIndexes` и запускаем анимацию.
 
+![Screen](https://github.com/mirovodin/FFQuotes/blob/060f0266f9e7a4e24f8151c994f450beb136b944/Docs/screen.png?raw=true)
+
 ### Что реализовано плохо или не реализовано
 - Mock на репозиторий, хочется более быстрое обновление котировок
 - *Криво* передается во view модели url для иконок
