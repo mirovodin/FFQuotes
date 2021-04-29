@@ -57,8 +57,7 @@ final class QuotesModuleViewQuoteCell: UITableViewCell {
         headDescriptionLabel.text = nil
         tailDescriptionLabel.text = nil
         percentChangeLabel.text = nil
-//        percentChangeLabel.layer.backgroundColor = palette.getColor(.background).cgColor
-//        percentChangeLabel.layer.removeAllAnimations()
+        percentChangeLabel.layer.backgroundColor = palette.getColor(.background).cgColor
         tickerImageView.isHidden = true
         tickerLeadingConstraint.constant = Constants.tickerLeadingPadding
     }
