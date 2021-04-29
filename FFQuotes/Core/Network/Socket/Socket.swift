@@ -11,9 +11,13 @@ enum Socket {
 
     enum Event {
         case onInitialized
+        case onDataReceived(data: Data)
+    }
+
+    enum Status {
+        case onInitialized
         case onConnected
         case onDisconnected
-        case onDataReceived(data: Data)
     }
 
     struct Config {
@@ -29,11 +33,16 @@ extension Socket.Config {
     }
 }
 
+protocol SocketStatusProvider {
+    var status: Observable<Socket.Status> { get }
+    var isConnected: Bool { get }
+}
+
 protocol SocketPublisherProtocol {
     var events: Observable<Socket.Event> { get }
 }
 
-protocol SocketProtocol: SocketPublisherProtocol {
+protocol SocketProtocol: SocketPublisherProtocol, SocketStatusProvider {
     var isConnected: Bool { get }
     func open(config: Socket.Config)
     func close()

@@ -7,7 +7,7 @@
 
 enum QuotesModuleViewState {
     case initial
-    case fullUpdate(viewModel: QuotesModuleViewModel)
     case update(viewModel: QuotesModuleViewModel)
     case emptyResult(message: String)
+    case networkError(message: String)
 }

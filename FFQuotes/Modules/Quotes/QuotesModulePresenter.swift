@@ -10,6 +10,7 @@ import Foundation
 protocol QuotesModulePresenterProtocol {
     func present(model: [QuoteModel], updatedIndexes: Set<Int>)
     func presentEmpty()
+    func presentNetworkError()
 }
 
 final class QuotesModulePresenter {
@@ -33,23 +34,22 @@ extension QuotesModulePresenter: QuotesModulePresenterProtocol {
         }
 
         let viewModel = QuotesModuleViewModel(items: items, updatedIndexes: updatedIndexes)
-
-        let viewState: QuotesModuleViewState
-
-        if updatedIndexes.isEmpty {
-            viewState = QuotesModuleViewState.fullUpdate(viewModel: viewModel)
-        } else {
-            viewState = QuotesModuleViewState.update(viewModel: viewModel)
-        }
+        let viewState = QuotesModuleViewState.update(viewModel: viewModel)
 
         DispatchQueue.main.async { [weak self] in
             self?.view?.displayViewState(viewState: viewState)
         }
     }
 
+    func presentNetworkError() {
+        DispatchQueue.main.async { [weak self] in
+            self?.view?.displayViewState(viewState: .networkError(message: "No internet connection."))
+        }
+    }
+
     func presentEmpty() {
         DispatchQueue.main.async { [weak self] in
-            self?.view?.displayViewState(viewState: .emptyResult(message: "List is empty"))
+            self?.view?.displayViewState(viewState: .emptyResult(message: "List is empty."))
         }
     }
 }

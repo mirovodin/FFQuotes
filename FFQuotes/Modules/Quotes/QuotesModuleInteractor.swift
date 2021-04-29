@@ -21,21 +21,32 @@ final class QuotesModuleInteractor {
 
     private let presenter: QuotesModulePresenterProtocol
     private let repository: QuotesRepositoryProtocol
+    private let socketStatus: SocketStatusProvider
+    private let networkStatus: NetworkStatusProvider
 
     private var disposal = Disposal()
 
-    init(repository: QuotesRepositoryProtocol, presenter: QuotesModulePresenterProtocol) {
+    init(repository: QuotesRepositoryProtocol, socketStatus: SocketStatusProvider, networkStatus: NetworkStatusProvider, presenter: QuotesModulePresenterProtocol) {
         self.presenter = presenter
         self.repository = repository
+        self.socketStatus = socketStatus
+        self.networkStatus = networkStatus
         subscribe()
     }
 
     private func subscribe() {
+        socketStatus.status.observe { [weak self] (status: Socket.Status, _) in
+            if case .onDisconnected = status {
+                self?.processDisconnected()
+            }
+
+        }.add(to: &disposal)
+
         repository.events.observe { [weak self] (event: QuotesRepositoryEvent, _) in
             switch event {
                 case .onUpdated(_, let updated):
                     self?.processUpdate(updated: updated)
-                case .onCleared:
+                case .onEmpty:
                     self?.processEmpty()
                 default:
                     break
@@ -45,6 +56,12 @@ final class QuotesModuleInteractor {
 
     private func processEmpty() {
         presenter.presentEmpty()
+    }
+
+    private func processDisconnected() {
+        if !networkStatus.isNetworkReachable {
+            presenter.presentNetworkError()
+        }
     }
 
     private func processUpdate(updated: Set<QuoteModel>) {

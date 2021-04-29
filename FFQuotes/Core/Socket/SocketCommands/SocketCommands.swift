@@ -15,7 +15,7 @@ protocol SocketCommand {
 
 enum SocketCommands {
 
-    static let QuotesSubscribeId = "quotes"
+    static let QuotesSubscribeId = "realtimeQuotes"
 
     struct QuotesSubscribe: SocketCommand {
         let id: String

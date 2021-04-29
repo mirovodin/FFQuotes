@@ -35,11 +35,9 @@ final class QuotesModuleView: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
         view.backgroundColor = palette.getColor(.background)
-
         configureTableView()
-        configureInformationView()
+        configurePlaceholderView(informationView)
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -52,15 +50,15 @@ final class QuotesModuleView: UIViewController {
         interactor?.stopQuotes()
     }
 
-    private func configureInformationView() {
-        view.addSubview(informationView)
-        informationView.backgroundColor = palette.getColor(.background)
-        informationView.translatesAutoresizingMaskIntoConstraints = false
-        informationView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
-        informationView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
-        informationView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
-        informationView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
-        informationView.isHidden = true
+    private func configurePlaceholderView(_ placeholder: UIView) {
+        view.addSubview(placeholder)
+        placeholder.backgroundColor = palette.getColor(.background)
+        placeholder.translatesAutoresizingMaskIntoConstraints = false
+        placeholder.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        placeholder.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        placeholder.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
+        placeholder.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
+        placeholder.isHidden = true
     }
 
     private func configureTableView() {
@@ -79,6 +77,7 @@ final class QuotesModuleView: UIViewController {
         tableView.backgroundColor = palette.getColor(.background)
         tableView.separatorStyle = .none
         tableView.allowsMultipleSelection = false
+        tableView.showsVerticalScrollIndicator = false
         tableView.tableFooterView = UIView()
     }
 
@@ -88,21 +87,9 @@ final class QuotesModuleView: UIViewController {
         informationView.isHidden = false
     }
 
-    private func displayEmpty(title: String) {
-        let image = UIImage(systemName: "icloud")
-        displayInformation(title: title, image: image)
-    }
-
-    private func displayFullUpdate(viewModel: QuotesModuleViewModel) {
+    private func displayUpdate(viewModel: QuotesModuleViewModel) {
         dataSource.model = viewModel
         tableView.reloadData()
-        informationView.isHidden = true
-    }
-
-    private func displayUpdate(viewModel: QuotesModuleViewModel) {
-        let indexes = viewModel.updatedIndexes.map { IndexPath(row: $0, section: 0) }
-        dataSource.model = viewModel
-        tableView.reloadRows(at: indexes, with: .fade)
         informationView.isHidden = true
     }
 }
@@ -113,12 +100,12 @@ extension QuotesModuleView: QuotesModuleViewProtocol {
         switch viewState {
         case .initial:
             break
-        case let .fullUpdate(viewModel: viewModel):
-            displayFullUpdate(viewModel: viewModel)
         case let .update(viewModel: viewModel):
             displayUpdate(viewModel: viewModel)
         case let .emptyResult(message: message):
-            displayEmpty(title: message)
+            displayInformation(title: message, image: UIImage(named: "empty-list"))
+        case let .networkError(message: message):
+            displayInformation(title: message, image: UIImage(named: "no-internet"))
         }
     }
 }

@@ -13,6 +13,7 @@ final class WebSocketImpl {
     private var webSocket: WebSocket?
     private let queue = DispatchQueue(label: "socket-component.queue")
     private let internalEvents = MutableObservable(Socket.Event.onInitialized)
+    private let internalStatus = MutableObservable(Socket.Status.onInitialized)
 
     deinit {
         close()
@@ -23,6 +24,10 @@ extension WebSocketImpl: SocketProtocol {
 
     var events: Observable<Socket.Event> {
         return internalEvents
+    }
+
+    var status: Observable<Socket.Status> {
+        return internalStatus
     }
 
     var isConnected: Bool {
@@ -54,11 +59,11 @@ extension WebSocketImpl: SocketProtocol {
 extension WebSocketImpl: WebSocketDelegate {
 
     func websocketDidConnect(socket: WebSocketClient) {
-        internalEvents.wrappedValue = Socket.Event.onConnected
+        internalStatus.wrappedValue = Socket.Status.onConnected
     }
 
     func websocketDidDisconnect(socket: WebSocketClient, error: Error?) {
-        internalEvents.wrappedValue = Socket.Event.onDisconnected
+        internalStatus.wrappedValue = Socket.Status.onDisconnected
         webSocket?.delegate = nil
         webSocket = nil
     }

@@ -13,25 +13,33 @@ protocol QuotesModuleProtocol: Presentable {
 
 final class QuotesModule: QuotesModuleProtocol {
 
+    struct Dependencies {
+        let repository: QuotesRepositoryProtocol
+        let formatters: FormattersProtocol
+        let iconsFactory: TickerIconsFactoryProtocol
+        let socketStatus: SocketStatusProvider
+        let networkStatus: NetworkStatusProvider
+    }
+
     private var interactor: QuotesModuleInteractor?
     private var moduleView: UIViewController?
-    private let repository: QuotesRepositoryProtocol
-    private let formatters: FormattersProtocol
-    private let tickerIconsFactory: TickerIconsFactoryProtocol
+    private let dependencies: Dependencies
 
-    init(repository: QuotesRepositoryProtocol, formatters: FormattersProtocol, tickerIconsFactory: TickerIconsFactoryProtocol) {
-        self.repository = repository
-        self.formatters = formatters
-        self.tickerIconsFactory = tickerIconsFactory
+    init(dependencies: Dependencies) {
+        self.dependencies = dependencies
     }
 
     // MARK: - Presentable
     func toPresent() -> UIViewController? {
-        let presenter = QuotesModulePresenter(formatters: formatters, tickerIconsFactory: tickerIconsFactory)
+        let presenter = QuotesModulePresenter(formatters: dependencies.formatters,
+                                              tickerIconsFactory: dependencies.iconsFactory)
 
         let dataSource = ScheduleViewDataSource()
         let delegate = QuotesModuleViewDelegate()
-        interactor = QuotesModuleInteractor(repository: repository, presenter: presenter)
+        interactor = QuotesModuleInteractor(repository: dependencies.repository,
+                                            socketStatus: dependencies.socketStatus,
+                                            networkStatus: dependencies.networkStatus,
+                                            presenter: presenter)
 
         let view = QuotesModuleView(interactor: interactor, delegate: delegate, dataSource: dataSource)
         presenter.view = view

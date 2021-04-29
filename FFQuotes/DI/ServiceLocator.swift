@@ -9,7 +9,9 @@ protocol ServiceLocatorProtocol {
     func getQuotesRepository() -> QuotesRepositoryProtocol
     func getFormatters() -> FormattersProtocol
     func getSocketManager() -> SocketManagerProtocol
+    func getSocketStatus() -> SocketStatusProvider
     func getNetworkConfig() -> NetworkConfigProtocol
+    func getNetworkStatus() -> NetworkStatusProvider
     func getTickerIconsFactory() -> TickerIconsFactoryProtocol
 }
 
@@ -22,19 +24,26 @@ final class ServiceLocator {
     private lazy var socketManager = SocketManager(
         socket: socket,
         sender: SocketCommandSender(socket: socket, initializer: socketInitializer),
-        initializer: socketInitializer,
-        networkReachability: NetworkReachabilityService())
+        initializer: socketInitializer)
 
     private init() { }
 }
 
 extension ServiceLocator: ServiceLocatorProtocol {
 
+    func getNetworkStatus() -> NetworkStatusProvider {
+        return NetworkStatusService()
+    }
+
     func getFormatters() -> FormattersProtocol {
         return formatters
     }
 
     func getSocketManager() -> SocketManagerProtocol {
+        return socketManager
+    }
+
+    func getSocketStatus() -> SocketStatusProvider {
         return socketManager
     }
     

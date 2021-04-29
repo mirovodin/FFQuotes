@@ -11,7 +11,7 @@ import Observable
 enum QuotesRepositoryEvent {
     case onInitialized
     case onUpdated(inserted: Set<QuoteModel>, updated: Set<QuoteModel>)
-    case onCleared
+    case onEmpty
 }
 
 protocol QuotesRepositoryProtocol {
@@ -29,7 +29,7 @@ final class QuotesRepository {
         let storage: QuotesStorageProtocol
         let commandBuilder: SocketCommandBuilderProtocol
         let socketSender: SocketCommandSenderProtocol
-        let socketPublisher: SocketPublisherProtocol
+        let socketPublisher: SocketPublisherProtocol        
         let socketParser: SocketParserProtocol
     }
 
@@ -90,7 +90,7 @@ extension QuotesRepository: QuotesRepositoryProtocol {
 
     func removeAll() {
         dependencies.storage.removeAll()
-        internalEvents.wrappedValue = .onCleared
+        internalEvents.wrappedValue = .onEmpty
     }
 
     func getAll() -> [QuoteModel] {

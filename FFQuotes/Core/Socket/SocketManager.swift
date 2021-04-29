@@ -8,11 +8,6 @@
 import Foundation
 import Observable
 
-protocol SocketStatus {
-    var isNetworkReachable: Bool { get }
-    var isSocketConnected: Bool { get }
-}
-
 protocol SocketManagerProtocol {
     func start(config: Socket.Config)
     func pause()
@@ -23,22 +18,21 @@ protocol SocketManagerProtocol {
 final class SocketManager {
 
     private enum Constants {
-        static let reconnectInterval = TimeInterval(5)
+        static let reconnectInterval = TimeInterval(3)
     }
 
     private let socket: SocketProtocol
     private let socketSender: SocketCommandSenderProtocol
-    private let networkReachability: NetworkReachabilityProtocol
     private let socketInitializer: SocketInitializerProtocol
+    private let internalStatus = MutableObservable(Socket.Status.onInitialized)
     private var config: Socket.Config?
     private var reconnectTimer: Timer?
     private var isPaused = true
     private var disposal = Disposal()
 
-    init(socket: SocketProtocol, sender: SocketCommandSenderProtocol, initializer: SocketInitializerProtocol, networkReachability: NetworkReachabilityProtocol) {
+    init(socket: SocketProtocol, sender: SocketCommandSenderProtocol, initializer: SocketInitializerProtocol) {
         self.socket = socket
         self.socketSender = sender
-        self.networkReachability = networkReachability
         self.socketInitializer = initializer
     }
 
@@ -48,6 +42,7 @@ final class SocketManager {
 
     private func processConnected() {
         print("> Socket: connected.")
+        internalStatus.wrappedValue = .onConnected
         stopReconnectTimer()
 
         socketInitializer.commands.forEach { command in
@@ -57,12 +52,12 @@ final class SocketManager {
 
     private func processDisconnected() {
         print("> Socket: disconnected.")
+        internalStatus.wrappedValue = .onDisconnected
         startReconnectTimer()
     }
 
     private func startReconnectTimer() {
-        guard reconnectTimer == nil, !isPaused, !isSocketConnected else { return }
-
+        guard reconnectTimer == nil, !isPaused, !isConnected else { return }
         reconnectTimer = Timer.scheduledTimer(withTimeInterval: Constants.reconnectInterval, repeats: true) { [weak self] _ in
             self?.restore()
         }
@@ -78,7 +73,7 @@ final class SocketManager {
     }
 
     private func subscribe() {
-        socket.events.observe(DispatchQueue.main) { [weak self] (event: Socket.Event, _) in
+        socket.status.observe(DispatchQueue.main) { [weak self] (event: Socket.Status, _) in
             switch event {
                 case .onConnected:
                     self?.processConnected()
@@ -97,13 +92,14 @@ final class SocketManager {
     }
 }
 
-extension SocketManager: SocketStatus {
-    var isSocketConnected: Bool {
-        return socket.isConnected
+extension SocketManager: SocketStatusProvider {
+
+    var status: Observable<Socket.Status> {
+        return internalStatus
     }
 
-    var isNetworkReachable: Bool {
-        return networkReachability.isNetworkReachable()
+    var isConnected: Bool {
+        return socket.isConnected
     }
 }
 

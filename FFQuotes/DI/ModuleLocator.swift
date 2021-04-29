@@ -17,10 +17,13 @@ final class ModuleLocator {
 extension ModuleLocator: ModuleLocatorProtocol {
 
     func getQuotesModule() -> QuotesModuleProtocol {
-        let repository = ServiceLocator.shared.getQuotesRepository()
-        let formatters = ServiceLocator.shared.getFormatters()
-        let tickerIconsFactory = ServiceLocator.shared.getTickerIconsFactory()
-        let module = QuotesModule(repository: repository, formatters: formatters, tickerIconsFactory: tickerIconsFactory)
+        let dependencies = QuotesModule.Dependencies(
+            repository: ServiceLocator.shared.getQuotesRepository(),
+            formatters: ServiceLocator.shared.getFormatters(),
+            iconsFactory: ServiceLocator.shared.getTickerIconsFactory(),
+            socketStatus: ServiceLocator.shared.getSocketStatus(),
+            networkStatus: ServiceLocator.shared.getNetworkStatus())
+        let module = QuotesModule(dependencies: dependencies)
         return module
     }
 }
