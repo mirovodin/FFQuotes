@@ -19,24 +19,27 @@ protocol SocketProtocol: SocketPublisherProtocol {
 enum Socket {
     enum Event {
         case onInitialized
+        case onDataReceived(data: Data)
+    }
+
+    enum Status {
+        case onInitialized
         case onConnected
         case onDisconnected
-        case onDataReceived(data: Data)
     }
     ...
 protocol SocketPublisherProtocol {
     var events: Observable<Socket.Event> { get }
+}
+protocol SocketStatusProvider {
+    var status: Observable<Socket.Status> { get }
+    var isConnected: Bool { get }
 }
 ```
 `WebSocketImpl` - реализация посредством компонента `Starscream`.
 ### Сетевой слой
 `SocketManager` - отвечает за открытие/закрытие сокета, переподключение при обрыве.
 ```swift
-protocol SocketStatus {
-    var isNetworkReachable: Bool { get }
-    var isSocketConnected: Bool { get }
-}
-
 protocol SocketManagerProtocol {
     func start(config: Socket.Config)
     func pause()
@@ -44,7 +47,7 @@ protocol SocketManagerProtocol {
     func stop()
 }
 ```
-`NetworkReachabilityProtocol` - синхронное получение состояние сети
+`NetworkStatusProvider` - синхронное получение состояние сети
 `SocketCommandSenderProtocol` - отправка команд в сокет
 ```swift
 protocol SocketCommand {
@@ -122,9 +125,9 @@ protocol QuotesRepositoryProtocol {
 ```swift
 enum QuotesModuleViewState {
     case initial
-    case fullUpdate(viewModel: QuotesModuleViewModel)
     case update(viewModel: QuotesModuleViewModel)
     case emptyResult(message: String)
+    case networkError(message: String)
 }
 ...
 struct QuotesModuleViewModel {
