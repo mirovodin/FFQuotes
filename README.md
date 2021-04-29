@@ -1,6 +1,6 @@
 # Freedom Finance Quotes
 
-Тестовоый провект для компании *Freedom Finance*. Архитектура VIP, зависимости Cocoapods: 
+Тестовый проект для компании *Freedom Finance*. Архитектура VIP, зависимости Cocoapods: 
 - Starscream Websocket
 - Observable - простой компонент данный паттерн
 - Nuke - загрузка и отображение иконок
@@ -116,7 +116,7 @@ protocol QuotesRepositoryProtocol {
 ### DI
 В проекте использован паттерн `Service Locator`: `ServiceLocatorProtocol` и `ModuleLocatorProtocol`. Зависимости передаются через конструкторы.
 ### Модули
-Одноноправленная архитектура VIP:
+Однонаправленная архитектура VIP (Slean Swift)
 ![Vip](https://habrastorage.org/webt/xf/kt/ti/xfkttir6l7nud2q-m8ptw_1kfl8.jpeg)
 Модель обновления view:
 ```swift
@@ -152,9 +152,11 @@ protocol PaletteProtocol {
 
 Эффект *вспышки* при обновлении реализован в `QuotesModuleViewQuoteCell`, мы понимаем, что ячейка находится в списке `updatedIndexes` и запускаем анимацию.
 
+![Screen](https://github.com/mirovodin/FFQuotes/blob/060f0266f9e7a4e24f8151c994f450beb136b944/Docs/screen.png?raw=true)
+
 ### Что реализовано плохо или не реализовано
-- Mock на репозиторий, хочется более быстрое обновление котировок
-- *Криво* передается во view модели url для иконок
+- Нужно реализовать Mock на репозиторий, тк хочется более быстрое обновление котировок
+- Сейчас очень *криво* передается url иконок во viewModel
 - Вычисление индексов, какие элементы обновлены происходит не оптимально
-- landscape режим
+- Сделать Landscape режим
 
