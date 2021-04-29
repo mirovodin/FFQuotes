@@ -10,7 +10,7 @@
 		ADEC0F271333F7DAE243161B /* Pods_FFQuotes.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 253CB8B3398F5F33048772D9 /* Pods_FFQuotes.framework */; };
 		DA3E60452634712B000030F9 /* SocketCommandBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3E60442634712A000030F9 /* SocketCommandBuilder.swift */; };
 		DA3E604B263474E1000030F9 /* QuotesStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3E604A263474E1000030F9 /* QuotesStorage.swift */; };
-		DA3E6050263483B2000030F9 /* NetworkReachabilityService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3E604F263483B2000030F9 /* NetworkReachabilityService.swift */; };
+		DA3E6050263483B2000030F9 /* NetworkStatusService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3E604F263483B2000030F9 /* NetworkStatusService.swift */; };
 		DA3E60532634843A000030F9 /* Double+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3E60522634843A000030F9 /* Double+Extensions.swift */; };
 		DA6FA69E2632D85100B713D3 /* QuoteViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA6FA69D2632D85100B713D3 /* QuoteViewModel.swift */; };
 		DA7C2A802634AD1E0091A9E8 /* SocketCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7C2A7F2634AD1E0091A9E8 /* SocketCommand.swift */; };
@@ -70,7 +70,7 @@
 		CCF4ABB705F573886400FD23 /* Pods-FFQuotes.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FFQuotes.release.xcconfig"; path = "Target Support Files/Pods-FFQuotes/Pods-FFQuotes.release.xcconfig"; sourceTree = "<group>"; };
 		DA3E60442634712A000030F9 /* SocketCommandBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SocketCommandBuilder.swift; sourceTree = "<group>"; };
 		DA3E604A263474E1000030F9 /* QuotesStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuotesStorage.swift; sourceTree = "<group>"; };
-		DA3E604F263483B2000030F9 /* NetworkReachabilityService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkReachabilityService.swift; sourceTree = "<group>"; };
+		DA3E604F263483B2000030F9 /* NetworkStatusService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkStatusService.swift; sourceTree = "<group>"; };
 		DA3E60522634843A000030F9 /* Double+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+Extensions.swift"; sourceTree = "<group>"; };
 		DA6FA69D2632D85100B713D3 /* QuoteViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuoteViewModel.swift; sourceTree = "<group>"; };
 		DA7C2A7F2634AD1E0091A9E8 /* SocketCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocketCommand.swift; sourceTree = "<group>"; };
@@ -265,7 +265,7 @@
 			isa = PBXGroup;
 			children = (
 				DA7C2A8C2634B93F0091A9E8 /* Socket */,
-				DA3E604F263483B2000030F9 /* NetworkReachabilityService.swift */,
+				DA3E604F263483B2000030F9 /* NetworkStatusService.swift */,
 				DAAA3ED4263606E7006BA45D /* NetworkConfig.swift */,
 				DAAA3ED726360BCE006BA45D /* TickerIconsFactory.swift */,
 			);
@@ -567,7 +567,7 @@
 				DA3E604B263474E1000030F9 /* QuotesStorage.swift in Sources */,
 				DAC3DC6826320D56002C95AA /* Codable+Extensions.swift in Sources */,
 				DAE881CD26333E8D009DE906 /* ModuleLocator.swift in Sources */,
-				DA3E6050263483B2000030F9 /* NetworkReachabilityService.swift in Sources */,
+				DA3E6050263483B2000030F9 /* NetworkStatusService.swift in Sources */,
 				DA7C2A842634B1DB0091A9E8 /* SocketManager.swift in Sources */,
 				DAE881D6263359F7009DE906 /* Sign.swift in Sources */,
 				DAD865B62632BCC300546F00 /* QuotesModuleViewFooterView.swift in Sources */,
