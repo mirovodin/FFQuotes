@@ -57,8 +57,8 @@ final class QuotesModuleViewQuoteCell: UITableViewCell {
         headDescriptionLabel.text = nil
         tailDescriptionLabel.text = nil
         percentChangeLabel.text = nil
-        percentChangeLabel.layer.backgroundColor = palette.getColor(.background).cgColor
-        percentChangeLabel.layer.removeAllAnimations()
+//        percentChangeLabel.layer.backgroundColor = palette.getColor(.background).cgColor
+//        percentChangeLabel.layer.removeAllAnimations()
         tickerImageView.isHidden = true
         tickerLeadingConstraint.constant = Constants.tickerLeadingPadding
     }
@@ -84,7 +84,7 @@ final class QuotesModuleViewQuoteCell: UITableViewCell {
         }
     }
 
-    private func percentBadgeEnable(direction: Direction) {
+    private func setPercentBadgeEnable(direction: Direction) {
         let color: UIColor
         switch direction {
             case .down:
@@ -94,11 +94,10 @@ final class QuotesModuleViewQuoteCell: UITableViewCell {
             case .none:
             color = palette.getColor(.foreground)
         }
-        percentChangeLabel.textColor = palette.getColor(.foreground)
         percentChangeLabel.layer.backgroundColor = color.cgColor
     }
 
-    private func percentBadgeDisable() {
+    private func setPercentBadgeDisable() {
         percentChangeLabel.layer.backgroundColor = palette.getColor(.background).cgColor
         percentChangeLabel.layer.removeAllAnimations()
     }
@@ -116,14 +115,13 @@ final class QuotesModuleViewQuoteCell: UITableViewCell {
 
     private func configurePercentChangeLabel(model: QuoteCellViewModel) {
         percentChangeLabel.text = model.percentChangeValue
-        
         updatePercentChangeColor(sign: model.percentSign)
-
         if model.direction != .none && model.isUpdated {
+            percentChangeLabel.textColor = palette.getColor(.background)
             UIView.animate(withDuration: 0.3) {
-                self.percentBadgeEnable(direction: model.direction)
+                self.setPercentBadgeEnable(direction: model.direction)
             } completion: { (f: Bool) in
-                self.percentBadgeDisable()
+                self.setPercentBadgeDisable()
                 self.updatePercentChangeColor(sign: model.percentSign)
             }
         }
